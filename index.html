@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>豆香咖啡馆 · Bean & Brew</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: #3b2a20;
+      background: #fdf8f3;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* 顶部导航 */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(59, 42, 32, 0.95);
+      backdrop-filter: blur(8px);
+      color: #fdf8f3;
+      z-index: 100;
+      padding: 16px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 22px; font-weight: 700; letter-spacing: 1px; }
+    .logo span { color: #d4a574; }
+    nav ul { display: flex; gap: 32px; list-style: none; }
+    nav a:hover { color: #d4a574; transition: color 0.2s; }
+
+    /* Hero 区 */
+    .hero {
+      height: 78vh;
+      background: linear-gradient(rgba(59, 42, 32, 0.55), rgba(59, 42, 32, 0.55)),
+                  url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600") center/cover;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 24px;
+    }
+    .hero h1 { font-size: 56px; margin-bottom: 16px; letter-spacing: 2px; }
+    .hero p { font-size: 20px; max-width: 600px; margin-bottom: 32px; opacity: 0.92; }
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      background: #d4a574;
+      color: #3b2a20;
+      font-weight: 600;
+      border-radius: 30px;
+      transition: transform 0.2s, background 0.2s;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .btn:hover { background: #c08e5c; transform: translateY(-2px); }
+
+    /* 通用区块 */
+    section { padding: 80px 48px; max-width: 1200px; margin: 0 auto; }
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #3b2a20;
+    }
+    .section-sub {
+      text-align: center;
+      color: #8a6f5e;
+      margin-bottom: 56px;
+    }
+
+    /* 菜单卡片 */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(59, 42, 32, 0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(59, 42, 32, 0.15);
+    }
+    .card-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+    .card-body { padding: 20px 22px 24px; }
+    .card-body h3 { font-size: 20px; margin-bottom: 8px; }
+    .card-body p { color: #8a6f5e; font-size: 14px; min-height: 42px; }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+    }
+    .price { font-size: 22px; font-weight: 700; color: #c08e5c; }
+    .add-btn {
+      padding: 8px 18px;
+      background: #3b2a20;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .add-btn:hover { background: #5a4030; }
+
+    /* 关于我们 */
+    .about {
+      background: #f3e7d8;
+      max-width: none;
+      margin: 0;
+    }
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .about img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(59, 42, 32, 0.15);
+    }
+    .about h2 { font-size: 32px; margin-bottom: 16px; }
+    .about p { color: #5a4030; margin-bottom: 12px; }
+
+    /* 页脚 */
+    footer {
+      background: #3b2a20;
+      color: #d4c4b5;
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 14px;
+    }
+    footer .socials { margin-bottom: 12px; }
+    footer .socials a { margin: 0 12px; color: #d4a574; }
+
+    /* 购物车提示 */
+    .cart-badge {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: #d4a574;
+      color: #3b2a20;
+      padding: 14px 22px;
+      border-radius: 30px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .cart-badge:hover { transform: scale(1.05); }
+
+    @media (max-width: 700px) {
+      header { padding: 14px 20px; }
+      nav ul { gap: 16px; font-size: 14px; }
+      .hero h1 { font-size: 36px; }
+      .hero p { font-size: 16px; }
+      section { padding: 60px 20px; }
+      .about-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">豆香 <span>Bean & Brew</span></div>
+    <nav>
+      <ul>
+        <li><a href="#menu">菜单</a></li>
+        <li><a href="#about">关于</a></li>
+        <li><a href="#contact">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>一杯好咖啡,唤醒一整天</h1>
+    <p>精选阿拉比卡咖啡豆,匠心烘焙,每一口都是细致入微的香气与回甘。</p>
+    <a href="#menu" class="btn">立即选购</a>
+  </section>
+
+  <section id="menu">
+    <h2 class="section-title">人气菜单</h2>
+    <p class="section-sub">从经典到创意,总有一杯适合你</p>
+    <div class="menu-grid">
+      <div class="card">
+        <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600')"></div>
+        <div class="card-body">
+          <h3>经典美式</h3>
+          <p>浓郁醇厚,黑咖纯粹的本真味道</p>
+          <div class="price-row">
+            <span class="price">¥22</span>
+            <button class="add-btn" onclick="addToCart('经典美式', 22)">加入购物车</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1561882468-9110e03e0f78?w=600')"></div>
+        <div class="card-body">
+          <h3>拿铁咖啡</h3>
+          <p>浓缩与丝滑奶泡的完美邂逅</p>
+          <div class="price-row">
+            <span class="price">¥28</span>
+            <button class="add-btn" onclick="addToCart('拿铁咖啡', 28)">加入购物车</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600')"></div>
+        <div class="card-body">
+          <h3>卡布奇诺</h3>
+          <p>1:1:1 经典比例,奶泡轻盈柔软</p>
+          <div class="price-row">
+            <span class="price">¥28</span>
+            <button class="add-btn" onclick="addToCart('卡布奇诺', 28)">加入购物车</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=600')"></div>
+        <div class="card-body">
+          <h3>焦糖玛奇朵</h3>
+          <p>香甜焦糖与浓缩的浪漫交织</p>
+          <div class="price-row">
+            <span class="price">¥32</span>
+            <button class="add-btn" onclick="addToCart('焦糖玛奇朵', 32)">加入购物车</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600')"></div>
+        <div class="card-body">
+          <h3>冷萃咖啡</h3>
+          <p>12 小时低温萃取,清爽顺滑</p>
+          <div class="price-row">
+            <span class="price">¥30</span>
+            <button class="add-btn" onclick="addToCart('冷萃咖啡', 30)">加入购物车</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1534778101976-62847782c213?w=600')"></div>
+        <div class="card-body">
+          <h3>摩卡咖啡</h3>
+          <p>巧克力与咖啡的甜蜜碰撞</p>
+          <div class="price-row">
+            <span class="price">¥32</span>
+            <button class="add-btn" onclick="addToCart('摩卡咖啡', 32)">加入购物车</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="about-inner">
+      <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=800" alt="咖啡馆环境" />
+      <div>
+        <h2>关于豆香</h2>
+        <p>豆香咖啡馆创立于 2015 年,我们坚持从产地直采高品质咖啡生豆,每一批次都由资深烘焙师手工把控火候。</p>
+        <p>除了咖啡,我们更希望提供一个让你慢下来的角落 —— 一杯咖啡,一本书,一段宁静的时光。</p>
+        <p>欢迎来到豆香,在这里遇见更好的自己。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="text-align:center;">
+    <h2 class="section-title">来店里坐坐</h2>
+    <p class="section-sub">营业时间 · 周一至周日 08:00 - 22:00</p>
+    <p>📍 上海市黄浦区南京东路 188 号</p>
+    <p>📞 021-8888-6666</p>
+  </section>
+
+  <footer>
+    <div class="socials">
+      <a href="#">微信</a>·<a href="#">微博</a>·<a href="#">小红书</a>
+    </div>
+    <p>© 2026 豆香咖啡馆 Bean & Brew · 用心做好每一杯咖啡</p>
+  </footer>
+
+  <div class="cart-badge" onclick="showCart()">
+    🛒 购物车 (<span id="cart-count">0</span>)
+  </div>
+
+  <script>
+    const cart = [];
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      document.getElementById("cart-count").innerText = cart.length;
+    }
+    function showCart() {
+      if (cart.length === 0) {
+        alert("购物车还是空的,快去挑一杯吧!");
+        return;
+      }
+      const total = cart.reduce((s, i) => s + i.price, 0);
+      const list = cart.map(i => `· ${i.name} ¥${i.price}`).join("\n");
+      alert(`你的购物车:\n${list}\n\n合计:¥${total}`);
+    }
+  </script>
+</body>
+</html>
