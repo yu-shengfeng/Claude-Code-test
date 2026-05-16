@@ -22,7 +22,6 @@ const FALLBACK_MENU = [
 // ===== 初始化 =====
 document.addEventListener('DOMContentLoaded', () => {
   loadMenu();
-  setupIntersectionObserver();
   setupEventListeners();
   loadCartFromStorage();
 });
@@ -35,6 +34,7 @@ async function loadMenu() {
       menuData = FALLBACK_MENU;
     } else {
       const response = await fetch('menu.json');
+      if (!response.ok) throw new Error('menu.json 加载失败');
       menuData = await response.json();
     }
   } catch (error) {
@@ -42,6 +42,8 @@ async function loadMenu() {
     menuData = FALLBACK_MENU;
   }
   renderMenuCards();
+  // 卡片渲染完成后再启用滚动渐入观察器
+  setupIntersectionObserver();
 }
 
 // ===== 动态渲染菜单卡片 =====
@@ -60,7 +62,7 @@ function renderMenuCards() {
           <div class="spec-row">
             <span class="spec-label">杯型:</span>
             ${['S', 'M', 'L'].map(size => `
-              <button class="spec-btn size-btn" data-size="${size}" data-price-adjust="${size === 'S' ? -2 : size === 'L' ? 2 : 0}">
+              <button class="spec-btn size-btn${size === 'M' ? ' active' : ''}" data-size="${size}" data-price-adjust="${size === 'S' ? -2 : size === 'L' ? 2 : 0}">
                 ${size}
               </button>
             `).join('')}
@@ -69,7 +71,7 @@ function renderMenuCards() {
           <div class="spec-row">
             <span class="spec-label">温度:</span>
             ${['热', '冰'].map(temp => `
-              <button class="spec-btn temp-btn" data-temp="${temp}" ${temp === '热' ? 'class="spec-btn temp-btn active"' : 'class="spec-btn temp-btn"'}>
+              <button class="spec-btn temp-btn${temp === '热' ? ' active' : ''}" data-temp="${temp}">
                 ${temp}
               </button>
             `).join('')}
@@ -78,7 +80,7 @@ function renderMenuCards() {
           <div class="spec-row">
             <span class="spec-label">糖度:</span>
             ${['无糖', '少糖', '正常', '加糖'].map((sugar, idx) => `
-              <button class="spec-btn sugar-btn" data-sugar="${sugar}" ${idx === 2 ? 'class="spec-btn sugar-btn active"' : 'class="spec-btn sugar-btn"'}>
+              <button class="spec-btn sugar-btn${idx === 2 ? ' active' : ''}" data-sugar="${sugar}">
                 ${sugar}
               </button>
             `).join('')}
@@ -307,6 +309,15 @@ function showToast(message) {
 
 // ===== 滚动渐入动画 =====
 function setupIntersectionObserver() {
+  const cards = document.querySelectorAll('.card');
+
+  // 不支持 IntersectionObserver 或用户偏好减少动画时,直接显示
+  if (!('IntersectionObserver' in window) ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    cards.forEach(card => card.classList.add('in-view'));
+    return;
+  }
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -315,14 +326,20 @@ function setupIntersectionObserver() {
       }
     });
   }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px 80px 0px'
   });
 
-  // 页面加载后,对所有卡片进行观察
+  cards.forEach(card => observer.observe(card));
+
+  // 兜底:1.5 秒后强制显示所有未触发的卡片(防止 observer 异常)
   setTimeout(() => {
-    document.querySelectorAll('.card').forEach(card => observer.observe(card));
-  }, 100);
+    cards.forEach(card => {
+      if (!card.classList.contains('in-view')) {
+        card.classList.add('in-view');
+      }
+    });
+  }, 1500);
 }
 
 // ===== 本地存储 =====
