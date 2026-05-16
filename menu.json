@@ -8,37 +8,93 @@
   },
   {
     "id": 2,
+    "name": "意式浓缩",
+    "desc": "Espresso · 一杯精华,咖啡之魂",
+    "basePrice": 18,
+    "image": "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=600"
+  },
+  {
+    "id": 3,
     "name": "拿铁咖啡",
     "desc": "浓缩与丝滑奶泡的完美邂逅",
     "basePrice": 28,
     "image": "https://images.unsplash.com/photo-1561882468-9110e03e0f78?w=600"
   },
   {
-    "id": 3,
+    "id": 4,
+    "name": "馥芮白",
+    "desc": "Flat White · 浓郁咖啡感,澳式经典",
+    "basePrice": 28,
+    "image": "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=600"
+  },
+  {
+    "id": 5,
     "name": "卡布奇诺",
     "desc": "1:1:1 经典比例,奶泡轻盈柔软",
     "basePrice": 28,
     "image": "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600"
   },
   {
-    "id": 4,
+    "id": 6,
     "name": "焦糖玛奇朵",
     "desc": "香甜焦糖与浓缩的浪漫交织",
     "basePrice": 32,
     "image": "https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=600"
   },
   {
-    "id": 5,
-    "name": "冷萃咖啡",
-    "desc": "12 小时低温萃取,清爽顺滑",
-    "basePrice": 30,
-    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600"
-  },
-  {
-    "id": 6,
+    "id": 7,
     "name": "摩卡咖啡",
     "desc": "巧克力与咖啡的甜蜜碰撞",
     "basePrice": 32,
     "image": "https://images.unsplash.com/photo-1534778101976-62847782c213?w=600"
+  },
+  {
+    "id": 8,
+    "name": "香草拿铁",
+    "desc": "马达加斯加香草荚,温柔甜香",
+    "basePrice": 30,
+    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600"
+  },
+  {
+    "id": 9,
+    "name": "榛果拿铁",
+    "desc": "意大利榛果糖浆,坚果香气满溢",
+    "basePrice": 30,
+    "image": "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=600"
+  },
+  {
+    "id": 10,
+    "name": "燕麦拿铁",
+    "desc": "OatSide 燕麦奶,植物基轻负担",
+    "basePrice": 32,
+    "image": "https://images.unsplash.com/photo-1551030173-122aabc4489c?w=600"
+  },
+  {
+    "id": 11,
+    "name": "海盐椰拿铁",
+    "desc": "椰浆 + 海盐,层次清爽回甘",
+    "basePrice": 32,
+    "image": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=600"
+  },
+  {
+    "id": 12,
+    "name": "Dirty 脏咖啡",
+    "desc": "浓缩猛地撞入冰牛奶,层次分明",
+    "basePrice": 32,
+    "image": "https://images.unsplash.com/photo-1572286258217-215cf8e9d99e?w=600"
+  },
+  {
+    "id": 13,
+    "name": "冷萃咖啡",
+    "desc": "12 小时低温萃取,清爽顺滑",
+    "basePrice": 30,
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600"
+  },
+  {
+    "id": 14,
+    "name": "鸳鸯咖啡",
+    "desc": "港式经典,咖啡与丝袜奶茶的相遇",
+    "basePrice": 26,
+    "image": "https://images.unsplash.com/photo-1551606016-22b4f3a8a786?w=600"
   }
 ]
