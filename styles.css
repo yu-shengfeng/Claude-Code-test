@@ -1,0 +1,709 @@
+:root {
+  --primary-dark: #3b2a20;
+  --primary-light: #fdf8f3;
+  --accent: #d4a574;
+  --accent-dark: #c08e5c;
+  --text-muted: #8a6f5e;
+  --text-darker: #5a4030;
+  --bg-secondary: #f3e7d8;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: var(--primary-dark);
+  background: var(--primary-light);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ===== Hero 区 ===== */
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(59, 42, 32, 0.95);
+  backdrop-filter: blur(8px);
+  color: var(--primary-light);
+  z-index: 100;
+  padding: 16px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.logo span { color: var(--accent); }
+
+nav ul { display: flex; gap: 32px; list-style: none; }
+
+nav a {
+  transition: color 0.2s;
+}
+
+nav a:hover { color: var(--accent); }
+
+/* Hero Banner */
+.hero {
+  height: 78vh;
+  background: linear-gradient(rgba(59, 42, 32, 0.55), rgba(59, 42, 32, 0.55)),
+              url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600") center/cover;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 24px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hero h1 {
+  font-size: 56px;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+  animation: slideUp 0.8s ease-out 0.1s both;
+}
+
+.hero p {
+  font-size: 20px;
+  max-width: 600px;
+  margin-bottom: 32px;
+  opacity: 0.92;
+  animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 36px;
+  background: var(--accent);
+  color: var(--primary-dark);
+  font-weight: 600;
+  border-radius: 30px;
+  transition: transform 0.2s, background 0.2s;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  animation: slideUp 0.8s ease-out 0.3s both;
+}
+
+.btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
+}
+
+/* ===== 通用区块 ===== */
+section {
+  padding: 80px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 12px;
+  color: var(--primary-dark);
+}
+
+.section-sub {
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 56px;
+}
+
+/* ===== 菜单卡片 ===== */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(59, 42, 32, 0.08);
+  transition: transform 0.25s, box-shadow 0.25s;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.card.in-view {
+  animation: cardSlideIn 0.6s ease-out forwards;
+}
+
+@keyframes cardSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(59, 42, 32, 0.15);
+}
+
+.card-img {
+  height: 200px;
+  background: linear-gradient(#e0e0e0, #f0f0f0);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: imgFadeIn 0.4s ease-out forwards;
+}
+
+@keyframes imgFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.card-body {
+  padding: 20px 22px 24px;
+}
+
+.card-body h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.card-body p {
+  color: var(--text-muted);
+  font-size: 14px;
+  min-height: 42px;
+}
+
+/* 规格选择器 */
+.specs-section {
+  margin: 14px 0 12px;
+  font-size: 13px;
+  color: var(--text-darker);
+}
+
+.spec-row {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.spec-label {
+  font-weight: 600;
+  min-width: 40px;
+}
+
+.spec-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--text-muted);
+  background: transparent;
+  color: var(--primary-dark);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.spec-btn.active {
+  background: var(--primary-dark);
+  color: var(--primary-light);
+  border-color: var(--primary-dark);
+}
+
+.spec-btn:hover:not(.active) {
+  border-color: var(--accent);
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+.add-btn {
+  padding: 8px 18px;
+  background: var(--primary-dark);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.add-btn:hover {
+  background: var(--text-darker);
+}
+
+/* ===== 关于我们 ===== */
+.about {
+  background: var(--bg-secondary);
+  max-width: none;
+  margin: 0;
+  padding: 80px 48px;
+}
+
+.about-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.about img {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(59, 42, 32, 0.15);
+}
+
+.about h2 {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.about p {
+  color: var(--text-darker);
+  margin-bottom: 12px;
+}
+
+/* ===== 页脚 ===== */
+footer {
+  background: var(--primary-dark);
+  color: #d4c4b5;
+  text-align: center;
+  padding: 32px 24px;
+  font-size: 14px;
+}
+
+footer .socials { margin-bottom: 12px; }
+
+footer .socials a {
+  margin: 0 12px;
+  color: var(--accent);
+  transition: opacity 0.2s;
+}
+
+footer .socials a:hover { opacity: 0.8; }
+
+/* ===== 购物车抽屉 ===== */
+.cart-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 200;
+}
+
+.cart-overlay.active {
+  display: block;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100vh;
+  background: var(--primary-light);
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+  z-index: 210;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out;
+  overflow-y: auto;
+}
+
+.cart-drawer.active {
+  transform: translateX(0);
+}
+
+.cart-header {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.cart-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--primary-dark);
+}
+
+.cart-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.cart-item {
+  background: #fff;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #e8e8e8;
+}
+
+.cart-item-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--primary-dark);
+}
+
+.cart-item-spec {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.cart-item-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.qty-control {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.qty-btn {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--text-muted);
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.qty-btn:hover {
+  background: var(--primary-dark);
+  color: #fff;
+  border-color: var(--primary-dark);
+}
+
+.cart-item-price {
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.cart-item-remove:hover {
+  color: var(--primary-dark);
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+}
+
+.cart-footer {
+  padding: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.cart-total-amount {
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary-dark);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.checkout-btn:hover {
+  background: var(--text-darker);
+}
+
+.checkout-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* 购物车按钮 */
+.cart-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: var(--accent);
+  color: var(--primary-dark);
+  padding: 14px 22px;
+  border-radius: 30px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+  border: none;
+  z-index: 150;
+}
+
+.cart-btn:hover {
+  transform: scale(1.05);
+}
+
+.cart-badge {
+  display: inline-block;
+  background: var(--accent-dark);
+  color: #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  font-size: 12px;
+  margin-left: 6px;
+  font-weight: 700;
+}
+
+/* ===== Toast 通知 ===== */
+.toast {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary-dark);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 300;
+  animation: toastSlide 0.3s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes toastSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ===== 表单弹窗 ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 400;
+}
+
+.modal-overlay.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: var(--primary-light);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--primary-dark);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--primary-dark);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-primary {
+  flex: 1;
+  padding: 12px;
+  background: var(--primary-dark);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--text-darker);
+}
+
+.btn-secondary {
+  flex: 1;
+  padding: 12px;
+  background: #e8e8e8;
+  color: var(--primary-dark);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #ddd;
+}
+
+.form-error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 700px) {
+  header { padding: 14px 20px; }
+  nav ul { gap: 16px; font-size: 14px; }
+
+  .hero h1 { font-size: 36px; }
+  .hero p { font-size: 16px; }
+
+  section { padding: 60px 20px; }
+  .about-inner { grid-template-columns: 1fr; }
+
+  .cart-drawer {
+    width: 100%;
+  }
+
+  .cart-btn {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
