@@ -1,6 +1,16 @@
 let menuData = [];
 let cart = [];
 
+// 内嵌菜单数据 - 作为 fallback，避免 file:// 协议下无法 fetch
+const FALLBACK_MENU = [
+  { id: 1, name: "经典美式", desc: "浓郁醇厚,黑咖纯粹的本真味道", basePrice: 22, image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600" },
+  { id: 2, name: "拿铁咖啡", desc: "浓缩与丝滑奶泡的完美邂逅", basePrice: 28, image: "https://images.unsplash.com/photo-1561882468-9110e03e0f78?w=600" },
+  { id: 3, name: "卡布奇诺", desc: "1:1:1 经典比例,奶泡轻盈柔软", basePrice: 28, image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600" },
+  { id: 4, name: "焦糖玛奇朵", desc: "香甜焦糖与浓缩的浪漫交织", basePrice: 32, image: "https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=600" },
+  { id: 5, name: "冷萃咖啡", desc: "12 小时低温萃取,清爽顺滑", basePrice: 30, image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600" },
+  { id: 6, name: "摩卡咖啡", desc: "巧克力与咖啡的甜蜜碰撞", basePrice: 32, image: "https://images.unsplash.com/photo-1534778101976-62847782c213?w=600" }
+];
+
 // ===== 初始化 =====
 document.addEventListener('DOMContentLoaded', () => {
   loadMenu();
@@ -12,12 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
 // ===== 菜单数据加载 =====
 async function loadMenu() {
   try {
-    const response = await fetch('menu.json');
-    menuData = await response.json();
-    renderMenuCards();
+    // file:// 协议下 fetch 会失败，直接使用内嵌数据
+    if (location.protocol === 'file:') {
+      menuData = FALLBACK_MENU;
+    } else {
+      const response = await fetch('menu.json');
+      menuData = await response.json();
+    }
   } catch (error) {
-    console.error('Failed to load menu:', error);
+    console.warn('使用内嵌菜单数据:', error);
+    menuData = FALLBACK_MENU;
   }
+  renderMenuCards();
 }
 
 // ===== 动态渲染菜单卡片 =====
